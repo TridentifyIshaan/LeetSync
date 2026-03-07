@@ -4,17 +4,18 @@ class Solution {
             return false;
         }
 
-        int[] count = new int[26]; // Assuming only lowercase letters
-        for (int i = 0; i < s.length(); i++) {
-            count[s.charAt(i) - 'a']++; // Increment count for s
-            count[t.charAt(i) - 'a']--; // Decrement count for t
-        }
+        // Create New Hash Map
+        HashMap<Character, Integer> countS = new HashMap<>();
+        HashMap<Character, Integer> countT = new HashMap<>();
 
-        for (int i : count) {
-            if (i != 0) {
-                return false; // If any count is not zero, they are not anagrams
-            }
+        // Count the frequency of each character in the first string by first converting the string to a character array and then iterating through it
+
+        for ( char c : s.toCharArray() ) {
+            countS.put(c, countS.getOrDefault(c, 0) + 1); // If the character is not present in the hash map, it will return 0 and then we add 1 to it. If it is present, it will return the current count and then we add 1 to it.
         }
-        return true;
+        for ( char c : t.toCharArray() ) {
+            countT.put(c, countT.getOrDefault(c, 0) + 1);
+        }
+        return countS.equals(countT); // T/F
     }
 }
